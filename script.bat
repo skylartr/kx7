@@ -3,7 +3,6 @@ chcp 65001 >nul
 color 0d
 mode con: cols=160 lines=50
 cls
-
 goto kx7
 
 :kx7
