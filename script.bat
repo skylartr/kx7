@@ -31,16 +31,18 @@ echo     1) netstat
 echo     2) ipconfig
 echo     3) port scan
 echo     4) net reset
-echo     5) fullscreen
-echo     6) exit
+echo     5) group policy reset
+echo     6) fullscreen
+echo     7) exit
 echo.
 set /p input=
 if /I "%input%" EQU "1" goto netstat
 if /I "%input%" EQU "2" goto ipconfig
 if /I "%input%" EQU "3" goto portscan
 if /I "%input%" EQU "4" goto reset
-if /I "%input%" EQU "5" goto full
-if /I "%input%" EQU "6" goto exit
+if /I "%input%" EQU "5" goto group
+if /I "%input%" EQU "6" goto full
+if /I "%input%" EQU "7" goto exit
 
 
 
@@ -77,6 +79,55 @@ ping localhost -n 1 >nul
 del portscan.txt
 pause
 goto :kx7
+
+
+
+:group
+echo off
+echo To use this tool Kx7 must be run as admin
+echo This will delete all GroupPolicys on your pc!!!
+echo Only continue if you know what you're doing !!!
+echo     y) yes
+echo     n) no
+set /p input=
+if /I "%input%" EQU "y" goto yes
+if /I "%input%" EQU "n" goto kx7
+:yes
+RD /S /Q "%WinDir%\System32\GroupPolicyUsers"
+RD /S /Q "%WinDir%\System32\GroupPolicy"
+
+gpupdate /force
+
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies" /f
+
+reg delete "HKCU\Software\Policies" /f
+
+reg delete "HKLM\Software\Microsoft\Policies" /f
+
+reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies" /f
+
+reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate" /f
+
+reg delete "HKLM\Software\Policies" /f
+
+reg delete "HKLM\Software\WOW6432Node\Microsoft\Policies" /f
+
+reg delete "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies" /f
+
+reg delete "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate" /f
+
+:: Restore Settings / Apps / Startup page
+
+REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v SupportUwpStartupTasks /t REG_DWORD /d 1 /f
+
+REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableFullTrustStartupTasks /t REG_DWORD /d 2 /f
+
+REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableUwpStartupTasks /t REG_DWORD /d 2 /f
+
+REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v SupportFullTrustStartupTasks /t REG_DWORD /d 1 /f
+pause
+goto :kx7
+
 
 :reset
 color 3
