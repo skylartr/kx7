@@ -4,3 +4,4 @@ netstat <br/>
 ipconfig <br/>
 port scan <br/>
 net reset <br/>
+group policy reset <br/>
