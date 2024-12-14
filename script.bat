@@ -32,8 +32,9 @@ echo     2) ipconfig
 echo     3) port scan
 echo     4) net reset
 echo     5) group policy reset
-echo     6) fullscreen
-echo     7) exit
+echo     6) group policy update
+echo     7) fullscreen
+echo     8) exit
 echo.
 set /p input=
 if /I "%input%" EQU "1" goto netstat
@@ -41,8 +42,9 @@ if /I "%input%" EQU "2" goto ipconfig
 if /I "%input%" EQU "3" goto portscan
 if /I "%input%" EQU "4" goto reset
 if /I "%input%" EQU "5" goto group
-if /I "%input%" EQU "6" goto full
-if /I "%input%" EQU "7" goto exit
+if /I "%input%" EQU "6" goto gpupdate
+if /I "%input%" EQU "7" goto full
+if /I "%input%" EQU "8" goto exit
 
 
 
@@ -128,6 +130,11 @@ REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v Suppor
 pause
 goto :kx7
 
+
+:gpupdate
+gpupdate /force
+pause
+goto :kx7
 
 :reset
 color 3
