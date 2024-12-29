@@ -4,7 +4,6 @@ chcp 65001 >nul
 color 0d
 mode con: cols=160 lines=50
 cls
-
 goto kx7
 
 :kx7
@@ -23,7 +22,6 @@ echo "          |____|   |____||____|    |____| \|____|_____|   |____|     | /  
 echo "            \(       )/    \(        )/      \(    )/       \( |_____|/     \(    )/      \( |_____|/    \(       )/  ";
 echo "             '       '      '        '        '    '         '    )/         '    '        '    )/        '       '   ";
 echo "                         
-
 echo.
 echo.
 echo         TOOLS
@@ -47,8 +45,6 @@ if /I "%input%" EQU "6" goto gpupdate
 if /I "%input%" EQU "7" goto full
 if /I "%input%" EQU "8" goto exit
 
-
-
 :netstat
 cls
 @echo off
@@ -56,7 +52,6 @@ color 3
 netstat 
 pause
 goto :kx7
-
 
 :ipconfig
 @echo off 
@@ -83,8 +78,6 @@ del portscan.txt
 pause
 goto :kx7
 
-
-
 :group
 echo off
 echo To use this tool Kx7 must be run as admin
@@ -98,39 +91,23 @@ if /I "%input%" EQU "n" goto kx7
 :yes
 RD /S /Q "%WinDir%\System32\GroupPolicyUsers"
 RD /S /Q "%WinDir%\System32\GroupPolicy"
-
 gpupdate /force
-
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies" /f
-
 reg delete "HKCU\Software\Policies" /f
-
 reg delete "HKLM\Software\Microsoft\Policies" /f
-
 reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies" /f
-
 reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate" /f
-
 reg delete "HKLM\Software\Policies" /f
-
 reg delete "HKLM\Software\WOW6432Node\Microsoft\Policies" /f
-
 reg delete "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies" /f
-
 reg delete "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate" /f
-
 :: Restore Settings / Apps / Startup page
-
 REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v SupportUwpStartupTasks /t REG_DWORD /d 1 /f
-
 REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableFullTrustStartupTasks /t REG_DWORD /d 2 /f
-
 REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableUwpStartupTasks /t REG_DWORD /d 2 /f
-
 REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v SupportFullTrustStartupTasks /t REG_DWORD /d 1 /f
 pause
 goto :kx7
-
 
 :gpupdate
 gpupdate /force
